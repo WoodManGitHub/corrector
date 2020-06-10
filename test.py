@@ -1,4 +1,4 @@
-from correct import Corrector
+from corrector import Corrector
 
 correction = Corrector()
 
