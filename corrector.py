@@ -1,7 +1,11 @@
 import torch
 from transformers import BertTokenizer, BertForMaskedLM
+from opencc import OpenCC
 
 from utils.pinyin import get_sim_pronunciation
+
+
+cc = OpenCC('s2t')
 
 class Corrector():
     def __init__(self):
@@ -38,7 +42,7 @@ class Corrector():
             list_maybe_right = self.predict_mask(sentence, i + 1)
             for c in list_maybe_right:
                 if get_sim_pronunciation(c) == org_char_pinyin:
-                    if c != char:
+                    if cc.convert(c) != char:
                         correct_result.append([i, c])
                     break
 
